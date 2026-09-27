@@ -54,6 +54,59 @@
   text-shadow: 0 0 15px rgba(224, 169, 109, 0.8), 0 0 30px rgba(212, 175, 55, 0.5);
 }
 
+/* Continuous GPU Marquee Animations (Unstoppable on hover/touch) */
+@keyframes marqueeLeft {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.marquee-track-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeLeft var(--marquee-duration, 36s) linear infinite !important;
+  animation-play-state: running !important;
+}
+
+.marquee-track-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeRight var(--marquee-duration, 45s) linear infinite !important;
+  animation-play-state: running !important;
+}
+
+.marquee-track-left:hover,
+.marquee-track-right:hover,
+.marquee-track-left *:hover,
+.marquee-track-right *:hover,
+.marquee-track-left:focus,
+.marquee-track-right:focus,
+.marquee-track-left:active,
+.marquee-track-right:active {
+  animation-play-state: running !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none !important;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

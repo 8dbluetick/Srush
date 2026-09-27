@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
 const RAW_VIDEOS = [
@@ -72,7 +72,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ url, index }) => {
   }, []);
 
   return (
-    <div className="flex-shrink-0 w-[125px] h-[200px] sm:w-[170px] sm:h-[260px] md:w-[200px] md:h-[300px] rounded-2xl overflow-hidden glass-card border border-rosegold/20 shadow-xl relative bg-wine-dark/70 pointer-events-none select-none">
+    <div className="flex-shrink-0 w-[125px] h-[200px] sm:w-[170px] sm:h-[260px] md:w-[200px] md:h-[300px] rounded-2xl overflow-hidden glass-card border border-rosegold/20 shadow-xl relative bg-wine-dark/70 transition-all duration-300 md:hover:scale-[1.04] md:hover:brightness-110 md:hover:border-rosegold/50 md:hover:shadow-rosegold/20 group cursor-pointer pointer-events-auto select-none">
       <video
         ref={videoRef}
         src={getOptimizedVideoUrl(url)}
@@ -83,10 +83,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ url, index }) => {
         playsInline
         preload="metadata"
         aria-label={`Srushti memory video ${index + 1}`}
-        className="w-full h-full object-cover rounded-2xl pointer-events-none"
+        className="w-full h-full object-cover rounded-2xl"
       />
       {/* Subtle Rose-Gold Border Glow Overlay */}
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-rosegold/10 pointer-events-none" />
+      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-rosegold/10 pointer-events-none group-hover:ring-rosegold/40 transition-all" />
     </div>
   );
 };
@@ -99,26 +99,15 @@ interface VideoRowProps {
 }
 
 const VideoRow: React.FC<VideoRowProps> = ({ videos, direction, duration, startIndex }) => {
-  const shouldReduceMotion = useReducedMotion();
   // Duplicate array for infinite seamless looping
   const duplicatedVideos = [...videos, ...videos];
+  const trackClass = direction === 'left' ? 'marquee-track-left' : 'marquee-track-right';
 
   return (
-    <div className="flex overflow-hidden py-2 select-none relative w-full pointer-events-none">
-      <motion.div
-        animate={
-          shouldReduceMotion
-            ? {}
-            : {
-                x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'],
-              }
-        }
-        transition={{
-          repeat: Infinity,
-          duration,
-          ease: 'linear',
-        }}
-        className="flex gap-3 sm:gap-4 flex-nowrap will-change-transform pointer-events-none"
+    <div className="flex overflow-hidden py-2 select-none relative w-full">
+      <div
+        className={`${trackClass} flex gap-3 sm:gap-4 flex-nowrap`}
+        style={{ '--marquee-duration': `${duration}s` } as React.CSSProperties}
       >
         {duplicatedVideos.map((url, idx) => (
           <VideoCard
@@ -127,7 +116,7 @@ const VideoRow: React.FC<VideoRowProps> = ({ videos, direction, duration, startI
             index={(startIndex + (idx % videos.length))}
           />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
@@ -176,8 +165,8 @@ export const KaleshSection: React.FC = () => {
         </motion.p>
       </div>
 
-      {/* 3-Row Parallax Video Gallery with Edge Fade Masks (Unstoppable Motion) */}
-      <div className="w-full relative py-4 z-10 overflow-hidden pointer-events-none">
+      {/* 3-Row Parallax Video Gallery with Edge Fade Masks */}
+      <div className="w-full relative py-4 z-10 overflow-hidden">
         {/* Left Edge Mask Fade */}
         <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-36 bg-gradient-to-r from-[#16040c] via-[#16040c]/80 to-transparent z-20 pointer-events-none" />
         
@@ -185,7 +174,7 @@ export const KaleshSection: React.FC = () => {
         <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-36 bg-gradient-to-l from-[#16040c] via-[#16040c]/80 to-transparent z-20 pointer-events-none" />
 
         {/* Video Rows Container */}
-        <div className="space-y-3 sm:space-y-4 pointer-events-none">
+        <div className="space-y-3 sm:space-y-4">
           {/* ROW 1: Right to Left (36s) */}
           <VideoRow videos={row1Videos} direction="left" duration={36} startIndex={0} />
 
