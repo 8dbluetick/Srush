@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Feather, Sparkles } from 'lucide-react';
+import { Feather, Sparkles, Send } from 'lucide-react';
 
 export const FinalLetterSection: React.FC = () => {
   return (
@@ -35,7 +35,7 @@ export const FinalLetterSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="relative glass-card rounded-3xl p-8 sm:p-12 border border-rosegold/35 shadow-2xl text-left font-handwritten text-2xl sm:text-3xl text-blush-soft leading-relaxed space-y-6 bg-gradient-to-b from-[#250816]/90 to-[#19040e]/95"
+          className="relative glass-card rounded-3xl p-8 sm:p-12 border border-rosegold/35 shadow-2xl text-left font-handwritten text-2xl sm:text-3xl text-blush-soft leading-relaxed space-y-6 bg-gradient-to-b from-[#250816]/90 to-[#19040e]/95 overflow-hidden"
         >
           <div className="absolute top-4 right-4 opacity-20">
             <Sparkles className="w-10 h-10 text-rosegold" />
@@ -72,9 +72,15 @@ export const FinalLetterSection: React.FC = () => {
             <p className="text-2xl pt-1">❤️</p>
           </div>
 
-          {/* Signature */}
-          <div className="pt-6 text-right font-serif text-xl sm:text-2xl font-bold text-rosegold-light italic">
-            — Shreyash
+          {/* Signature with Airplane */}
+          <div className="pt-6 flex items-center justify-between font-serif text-xl sm:text-2xl font-bold text-rosegold-light italic">
+            <motion.div
+              animate={{ x: [0, 8, 0], y: [0, -3, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            >
+              <Send className="w-5 h-5 text-rosegold -rotate-45" />
+            </motion.div>
+            <span>— Shreyash</span>
           </div>
         </motion.div>
 
@@ -89,9 +95,6 @@ export const FinalLetterSection: React.FC = () => {
           <p className="text-xs sm:text-sm font-light text-blush-light/70 max-w-sm mx-auto leading-relaxed">
             Made with a little too much overthinking, <br />
             for someone who overthinks even more. 😂❤️
-          </p>
-          <p className="text-[10px] text-rosegold/40 font-mono tracking-widest pt-2">
-            CREATED ESPECIALLY FOR SRUSHTI
           </p>
         </motion.div>
 

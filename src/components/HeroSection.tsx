@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Heart } from 'lucide-react';
+import { ArrowRight, Sparkles, Heart, Send } from 'lucide-react';
 
 interface HeroProps {
   onStartClick: () => void;
@@ -69,14 +69,15 @@ export const HeroSection: React.FC<HeroProps> = ({ onStartClick }) => {
         </motion.div>
       </motion.div>
 
-      {/* Down indicator */}
+      {/* Down indicator with soaring paper airplane */}
       <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-rosegold/50 text-xs font-light flex flex-col items-center gap-1"
+        animate={{ y: [0, 10, 0], rotateZ: [-5, 5, -5] }}
+        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-rosegold/70 flex flex-col items-center gap-1.5 cursor-pointer"
+        onClick={onStartClick}
       >
-        <span>Scroll gently</span>
-        <div className="w-1 h-5 rounded-full bg-rosegold/30" />
+        <Send className="w-5 h-5 text-rosegold rotate-180 drop-shadow-[0_0_8px_rgba(224,169,109,0.8)]" />
+        <div className="w-1 h-4 rounded-full bg-gradient-to-b from-rosegold to-transparent" />
       </motion.div>
     </section>
   );
